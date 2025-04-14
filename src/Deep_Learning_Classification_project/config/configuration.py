@@ -1,7 +1,11 @@
 from Deep_Learning_Classification_project.constants import *
 from Deep_Learning_Classification_project.utils.common import read_yaml,create_directories
-from Deep_Learning_Classification_project.entity.config_entity import (DataIngestionConfig,PrepareBaseModelConfig)
+from Deep_Learning_Classification_project.entity.config_entity import (DataIngestionConfig,
+                                                                       PrepareBaseModelConfig,
+                                                                       PrepareCallbacksConfig,
+                                                                       TrainingConfig)
 from pathlib import Path
+import os 
 
 class ConfigurationManager:
     def __init__(
@@ -55,4 +59,50 @@ class ConfigurationManager:
         )
 
         return prepare_base_model_config
-      
+    
+
+
+
+    
+    def get_prepare_callback_config(self) -> PrepareCallbacksConfig:
+        config = self.config.prepare_callbacks
+        model_ckpt_dir = os.path.dirname(config.checkpoint_model_filepath)
+        create_directories([
+            Path(model_ckpt_dir),
+            Path(config.tensorboard_root_log_dir)
+        ])
+
+        prepare_callback_config = PrepareCallbacksConfig(
+            root_dir=Path(config.root_dir),
+            tensorboard_root_log_dir=Path(config.tensorboard_root_log_dir),
+            checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
+        )
+
+        return prepare_callback_config
+
+
+    def get_training_config(self) -> TrainingConfig:
+        training = self.config.training
+        prepare_base_model = self.config.prepare_base_model
+        params = self.params
+        training_data = os.path.join(self.config.data_ingestion.unzip_dir, "Chicken-fecal-images")
+        create_directories([
+            Path(training.root_dir)
+        ])
+
+        training_config = TrainingConfig(
+            root_dir=Path(training.root_dir),
+            trained_model_path=Path(training.trained_model_path),
+            updated_base_model_path=Path(prepare_base_model.updated_base_model_path),
+            training_data=Path(training_data),
+            params_epochs=params.EPOCHS,
+            params_batch_size=params.BATCH_SIZE,
+            params_is_augmentation=params.AUGMENTATION,
+            params_image_size=params.IMAGE_SIZE
+        )
+
+        return training_config
+
+
+
+    

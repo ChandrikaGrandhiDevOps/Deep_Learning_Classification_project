@@ -1,6 +1,9 @@
 from Deep_Learning_Classification_project.config.configuration import ConfigurationManager
 from Deep_Learning_Classification_project.components.prepare_base_model import PrepareBaseModel
 from Deep_Learning_Classification_project import logger
+from pathlib import Path
+
+
 
 SATGE_NAME = "Prepare base model"
 
@@ -14,6 +17,9 @@ class PrepareBaseModelTrainingPipeline:
         prepare_base_model = PrepareBaseModel(config=prepare_base_model_config)
         prepare_base_model.get_base_model()
         prepare_base_model.update_base_model()
+
+
+
 
 
 

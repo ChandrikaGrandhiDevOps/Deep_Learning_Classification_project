@@ -1,6 +1,7 @@
 from Deep_Learning_Classification_project.config.configuration import ConfigurationManager
 from Deep_Learning_Classification_project.components.data_ingestion import DataIngestion
 from Deep_Learning_Classification_project import logger
+from pathlib import Path
 
 
 SATGE_NAME = "Data Ingestion Stage"
