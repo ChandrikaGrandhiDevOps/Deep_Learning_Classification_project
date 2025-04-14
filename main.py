@@ -1,12 +1,28 @@
 from Deep_Learning_Classification_project import logger
 from Deep_Learning_Classification_project.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
+from Deep_Learning_Classification_project.pipeline.stage_02_prepare_base_model import PrepareBaseModelTrainingPipeline
 
-SATGE_NAME = "Data Ingestion Stage"
+
+
+STAGE_NAME = "Data Ingestion Stage"
+
 try:
-   logger.info(f">>>>>> stage {SATGE_NAME} started <<<<<<")
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
    obj = DataIngestionTrainingPipeline()
    obj.main()
-   logger.info(f">>>>>> stage {SATGE_NAME} completed <<<<<<\n\nx==========x")
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
         logger.exception(e)
-        raise e     
+        raise e 
+
+
+STAGE_NAME = "Prepare base model"
+try: 
+   logger.info(f"*******************")
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   prepare_base_model = PrepareBaseModelTrainingPipeline()
+   prepare_base_model.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+        logger.exception(e)
+        raise e
