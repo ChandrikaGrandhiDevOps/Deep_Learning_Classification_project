@@ -4,6 +4,7 @@ import zipfile
 from Deep_Learning_Classification_project import logger
 from Deep_Learning_Classification_project.utils.common import get_size
 from Deep_Learning_Classification_project.entity.config_entity import DataIngestionConfig
+from pathlib import path
 
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
