@@ -2,6 +2,7 @@ from Deep_Learning_Classification_project import logger
 from Deep_Learning_Classification_project.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
 from Deep_Learning_Classification_project.pipeline.stage_02_prepare_base_model import PrepareBaseModelTrainingPipeline
 from Deep_Learning_Classification_project.pipeline.stage_03_training import ModelTrainingPipeline
+from Deep_Learning_Classification_project.pipeline.stage_04_evaluation import EvaluationPipeline
 from pathlib import Path
 
 
@@ -37,6 +38,19 @@ try:
    model_trainer = ModelTrainingPipeline()
    model_trainer.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+        logger.exception(e)
+        raise e
+
+
+STAGE_NAME = "Evaluation stage"
+try:
+   logger.info(f"*******************")
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   model_evalution = EvaluationPipeline()
+   model_evalution.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+
 except Exception as e:
         logger.exception(e)
         raise e

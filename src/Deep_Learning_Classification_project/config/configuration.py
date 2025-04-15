@@ -3,7 +3,8 @@ from Deep_Learning_Classification_project.utils.common import read_yaml,create_d
 from Deep_Learning_Classification_project.entity.config_entity import (DataIngestionConfig,
                                                                        PrepareBaseModelConfig,
                                                                        PrepareCallbacksConfig,
-                                                                       TrainingConfig)
+                                                                       TrainingConfig,
+                                                                       EvaluationConfig)
 from pathlib import Path
 import os 
 
@@ -105,4 +106,14 @@ class ConfigurationManager:
 
 
 
+
     
+    def get_validation_config(self) -> EvaluationConfig:
+        eval_config = EvaluationConfig(
+            path_of_model="artifacts/training/model.keras",
+            training_data="artifacts/data_ingestion/Chicken-fecal-images",
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+        return eval_config    
